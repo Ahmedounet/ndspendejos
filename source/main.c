@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 int main(void) {
-	
+	//Graphics
     consoleDemoInit();
     printf("\n7aidar, il fallait build\n");
 
