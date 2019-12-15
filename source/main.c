@@ -10,7 +10,7 @@ int main(void) {
 	
     consoleDemoInit();
     printf("\n7aidar, il fallait build\n");
-
+    // LOL this works
     while(1)
         swiWaitForVBlank();	
 }
