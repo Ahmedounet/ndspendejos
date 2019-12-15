@@ -1,4 +1,9 @@
-
+build/*
+*.cproject
+*.project
+*.map
+*.d
+*.o
 *.map
 *.arm9
 *.elf
