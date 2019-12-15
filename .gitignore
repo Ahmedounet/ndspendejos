@@ -8,3 +8,4 @@ build/*
 *.arm9
 *.elf
 *.nds
+*.gitignore
