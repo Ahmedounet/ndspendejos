@@ -1,0 +1,5 @@
+
+*.map
+*.arm9
+*.elf
+*.nds
