@@ -18,4 +18,5 @@ void initGraphicsSub(void)
 	dmaCopy(SubBGMap,(u8*)BG_MAP_RAM_SUB(0),SubBGMapLen);
 	dmaCopy(SubBGPal,(u8*)BG_PALETTE_SUB,SubBGPalLen);
 	dmaCopy(SubBGTiles,(u8*)BG_TILE_RAM_SUB(1),SubBGTilesLen);
+
 }
