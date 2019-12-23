@@ -5,14 +5,14 @@
  *      Author: Dev
  */
 
-#ifndef GRAPHICS_SUB_H_
-#define GRAPHICS_SUB_H_
+#ifndef GRAPHICS_MAIN_H_
+#define GRAPHICS_MAIN_H_
 #include <nds.h>
 /**
  * Initializes the sub engine, activates the VRAM and the backgrounds, and draws the static background image.
  */
-void initGraphicsSub(void);
+void initGraphicsMain(void);
 
 
 
-#endif /* GRAPHICS_SUB_H_ */
+#endif /* GRAPHICS_MAIN_H_ */

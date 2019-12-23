@@ -1,12 +1,11 @@
 
-#include"graphics_sub.h"
-
 #include <nds.h>
 #include <stdio.h>
+#include "graphics_main.h"
 
 int main(void) {
 	//Graphics
-    initGraphicsSub();
+    initGraphicsMain();
     while(1)
         swiWaitForVBlank();	
 }
