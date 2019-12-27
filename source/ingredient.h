@@ -30,7 +30,7 @@ void setIngredient(ingredient ing);
 /**
  * \brief Initiates the sprite handler on the Main engine, activates and configures the VRAM, and allocates the sprite memory
  */
-void initSpriteHandler(void);
+void configureSprites(ingredient* tab);
 
 ingredient * initIngredientTab(void);
 

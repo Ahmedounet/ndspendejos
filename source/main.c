@@ -1,24 +1,30 @@
 
 
-#include "graphics_main.h"
 #include "ingredient.h"
+#include "touchHandler.h"
+#include "graphics_sub.h"
 #include <nds.h>
+
+
 
 
 
 int main(void) {
 	//Graphics
-    initGraphicsMain();
+    initGraphicsSub();
     ingredient* tab = initIngredientTab();
-	initSpriteHandler();
+	configureSprites(tab);
 	//consoleDemoInit();
+
 
     while(1)
     {
-
-    	setIngredient(tab[COFFEE]);
     	swiWaitForVBlank();
-    	//printf("%d, %d \n",tab[COFFEE].x, tab[COFFEE].y);
-    	oamUpdate(&oamMain);
+    	handleTouch(3,tab);
+    	setIngredient(tab[COFFEE]);
+    	setIngredient(tab[SUGAR]);
+    	setIngredient(tab[CREAM]);
+    	printf("%d, %d \n",tab[COFFEE].gfx, tab[SUGAR].gfx);
+    	oamUpdate(&oamSub);
     }
 }
