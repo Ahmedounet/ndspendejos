@@ -9,7 +9,7 @@
 #define GRAPHICS_MAIN_H_
 #include <nds.h>
 /**
- * Initializes the sub engine, activates the VRAM and the backgrounds, and draws the static background image.
+ * Initializes the Main engine, activates the VRAM and the backgrounds, and draws the static background image.
  */
 void initGraphicsMain(void);
 
