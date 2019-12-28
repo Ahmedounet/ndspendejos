@@ -6,9 +6,11 @@
  */
 
 #include "touchHandler.h"
+#include "sound.h"
 
 #include <stdbool.h>
 #include<math.h>
+
 #define POT_CENTRE_X  123
 #define POT_CENTRE_Y  81
 #define ELLIPSE_2A  96
@@ -27,7 +29,7 @@ void selectIngredient( int num, ingredient tab[num])
 	u16 keys = keysDown();
 	if(keys & KEY_TOUCH)
 	{
-		printf("TOUCHED \n");
+		//printf("TOUCHED \n");
 		touchPosition tp;
 		touchRead(&tp);
 		int i;
@@ -38,7 +40,7 @@ void selectIngredient( int num, ingredient tab[num])
 			{
 				tab[i].selected =  true;
 				selectedIndex = i;
-				printf("SELECTED: %d\n", tab[i].id);
+				//printf("SELECTED: %d\n", tab[i].id);
 			}
 				else
 				tab[i].selected =  false;
@@ -69,12 +71,12 @@ void dropSelected(ingredient* ing)
 		// Inside the ellipse representing the coffee cup
 		if(distance(x,y,F1_X,POT_CENTRE_Y) + distance(x,y,F2_X,POT_CENTRE_Y) <= ELLIPSE_2A)
 		{
-			//@TODO play plop
-			printf("DROPPED IN THE CUP\n");
+			plop();
+			//printf("DROPPED IN THE CUP\n");
 			//@TODO selected ingredient dropped into cup
 		}
 			ing->selected = false;
-			printf("DROPPED\n");
+			//printf("DROPPED\n");
 			selectedIndex = NONE;
 	}
 }

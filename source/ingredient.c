@@ -24,7 +24,7 @@ void setIngredient(ingredient ing)
 					SpriteSize_32x32,
 					SpriteColorFormat_16Color,
 					ing.gfx,
-					ing.selected,
+					false,
 					false,
 					!ing.visible,
 					false,
