@@ -17,6 +17,7 @@ void initGraphicsSub(void)
 
 
 	BGCTRL_SUB[0] = BG_32x32 | BG_COLOR_256 | BG_MAP_BASE(0) | BG_TILE_BASE(1) | BG_PRIORITY_3; //Configure BG0 for the static BG
+	//BGCTRL_SUB[1] = BG_32x32 | BG_COLOR_256 ;
 	//Copy into proper addresses
 	dmaCopy(SubBGMap,(u8*)BG_MAP_RAM_SUB(0),SubBGMapLen);
 	dmaCopy(SubBGPal,(u8*)BG_PALETTE_SUB,SubBGPalLen);

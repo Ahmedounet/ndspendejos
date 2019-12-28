@@ -24,8 +24,8 @@ void setIngredient(ingredient ing)
 					SpriteSize_32x32,
 					SpriteColorFormat_16Color,
 					ing.gfx,
-					-1,
 					ing.selected,
+					false,
 					!ing.visible,
 					false,
 					false,
@@ -37,7 +37,6 @@ void configureSprites(ingredient *tab)
 	VRAM_D_CR = VRAM_ENABLE | VRAM_D_SUB_SPRITE;
 	oamInit(&oamSub,SpriteMapping_1D_64,false);
 
-	//test
 
 	tab[COFFEE].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
 	tab[SUGAR].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
@@ -50,7 +49,7 @@ void configureSprites(ingredient *tab)
 	dmaCopy(creamTiles,tab[CREAM].gfx,creamTilesLen);
 	dmaCopy(creamPal,(u8*)(SPRITE_PALETTE_SUB+32),creamPalLen);
 
-
+	oamAffineTransformation(&oamSub,true,1,1,1,1);
 }
 
 ingredient*  initIngredientTab()
@@ -59,6 +58,7 @@ ingredient*  initIngredientTab()
 	initIng(&tab[COFFEE],COFFEE,37,122,ING_SIZE,ING_SIZE);
 	initIng(&tab[SUGAR],SUGAR,98,139,ING_SIZE,ING_SIZE);
 	initIng(&tab[CREAM],CREAM,172,122,ING_SIZE,ING_SIZE);
+	configureSprites(tab);
 	return tab;
 }
 

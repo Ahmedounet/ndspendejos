@@ -52,8 +52,10 @@ double distance(int x1, int y1, int x2, int y2)
 	return sqrt(pow(x1-x2,2) + pow(y1-y2,2));
 }
 
-
-void dropSelected(ingredient ing)
+/**
+ * \brief Checks whether the selected ingredient was dropped in the cup or outside. Then acts accordingly
+ */
+void dropSelected(ingredient* ing)
 {
 	scanKeys();
 	u16 keys = keysDown();
@@ -63,13 +65,15 @@ void dropSelected(ingredient ing)
 		touchRead(&tp);
 		int x = tp.px;
 		int y = tp.py;
+
+		// Inside the ellipse representing the coffee cup
 		if(distance(x,y,F1_X,POT_CENTRE_Y) + distance(x,y,F2_X,POT_CENTRE_Y) <= ELLIPSE_2A)
 		{
-			//play plop
-			printf("DROPPED IN THE POT\n");
-			//selected ingredient dropped into pot
+			//@TODO play plop
+			printf("DROPPED IN THE CUP\n");
+			//@TODO selected ingredient dropped into cup
 		}
-			ing.selected = false;
+			ing->selected = false;
 			printf("DROPPED\n");
 			selectedIndex = NONE;
 	}
@@ -82,5 +86,5 @@ void handleTouch(int num, ingredient tab[num])
 	if(selectedIndex == NONE)
 		selectIngredient(num,tab);
 	else
-		dropSelected(tab[selectedIndex]);
+		dropSelected(&tab[selectedIndex]);
 }
