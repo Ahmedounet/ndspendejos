@@ -24,10 +24,9 @@ void selectIngredient( int num, ingredient tab[num])
 {
 
 	scanKeys();
-	u16 keys = keysDown();
-	if(keys & KEY_TOUCH)
+	if(keysDown() & KEY_TOUCH)
 	{
-		printf("TOUCHED \n");
+		//printf("TOUCHED \n");
 		touchPosition tp;
 		touchRead(&tp);
 		int i;
@@ -38,7 +37,7 @@ void selectIngredient( int num, ingredient tab[num])
 			{
 				tab[i].selected =  true;
 				selectedIndex = i;
-				printf("SELECTED: %d\n", tab[i].id);
+				//printf("SELECTED: %d\n", tab[i].id);
 			}
 				else
 				tab[i].selected =  false;
@@ -55,27 +54,29 @@ double distance(int x1, int y1, int x2, int y2)
 /**
  * \brief Checks whether the selected ingredient was dropped in the cup or outside. Then acts accordingly
  */
-void dropSelected(ingredient* ing)
+void handleSelected(ingredient* ing)
 {
 	scanKeys();
-	u16 keys = keysDown();
-	if(keys & KEY_TOUCH)
+	if(keysHeld() & KEY_TOUCH) // drag and drop
 	{
 		touchPosition tp;
 		touchRead(&tp);
-		int x = tp.px;
-		int y = tp.py;
-
+		ing->x = tp.px;
+		ing-> y = tp.py;
+	}
+	else
+	{
 		// Inside the ellipse representing the coffee cup
-		if(distance(x,y,F1_X,POT_CENTRE_Y) + distance(x,y,F2_X,POT_CENTRE_Y) <= ELLIPSE_2A)
+		if(distance(ing->x,ing->y,F1_X,POT_CENTRE_Y) + distance(ing->x,ing->y,F2_X,POT_CENTRE_Y) <= ELLIPSE_2A)
 		{
 			//@TODO play plop
 			printf("DROPPED IN THE CUP\n");
 			//@TODO selected ingredient dropped into cup
 		}
 			ing->selected = false;
-			printf("DROPPED\n");
+			//printf("DROPPED\n");
 			selectedIndex = NONE;
+			resetIngredientPos(ing);
 	}
 }
 
@@ -86,5 +87,5 @@ void handleTouch(int num, ingredient tab[num])
 	if(selectedIndex == NONE)
 		selectIngredient(num,tab);
 	else
-		dropSelected(&tab[selectedIndex]);
+		handleSelected(&tab[selectedIndex]);
 }

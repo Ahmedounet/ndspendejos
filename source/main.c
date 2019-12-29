@@ -24,7 +24,7 @@ int main(void) {
     	setIngredient(tab[COFFEE]);
     	setIngredient(tab[SUGAR]);
     	setIngredient(tab[CREAM]);
-    	printf("%d, %d \n",tab[COFFEE].gfx, tab[SUGAR].gfx);
+    	//printf("%d, %d \n",tab[COFFEE].gfx, tab[SUGAR].gfx);
     	oamUpdate(&oamSub);
     }
 }

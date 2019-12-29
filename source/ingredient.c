@@ -12,6 +12,13 @@
 #include <stdbool.h>
 
 #define ING_SIZE 32
+#define COFFEE_X 37
+#define COFFEE_Y 122
+#define SUGAR_X 98
+#define SUGAR_Y 139
+#define CREAM_X 172
+#define CREAM_Y 122
+
 
 void setIngredient(ingredient ing)
 {
@@ -24,7 +31,7 @@ void setIngredient(ingredient ing)
 					SpriteSize_32x32,
 					SpriteColorFormat_16Color,
 					ing.gfx,
-					ing.selected,
+					-1,
 					false,
 					!ing.visible,
 					false,
@@ -49,15 +56,14 @@ void configureSprites(ingredient *tab)
 	dmaCopy(creamTiles,tab[CREAM].gfx,creamTilesLen);
 	dmaCopy(creamPal,(u8*)(SPRITE_PALETTE_SUB+32),creamPalLen);
 
-	oamAffineTransformation(&oamSub,true,1,1,1,1);
 }
 
 ingredient*  initIngredientTab()
 {
 	ingredient* tab = malloc(3*sizeof(ingredient));
-	initIng(&tab[COFFEE],COFFEE,37,122,ING_SIZE,ING_SIZE);
-	initIng(&tab[SUGAR],SUGAR,98,139,ING_SIZE,ING_SIZE);
-	initIng(&tab[CREAM],CREAM,172,122,ING_SIZE,ING_SIZE);
+	initIng(&tab[COFFEE],COFFEE,COFFEE_X,COFFEE_Y,ING_SIZE,ING_SIZE);
+	initIng(&tab[SUGAR],SUGAR,SUGAR_X,SUGAR_Y,ING_SIZE,ING_SIZE);
+	initIng(&tab[CREAM],CREAM,CREAM_X,CREAM_Y,ING_SIZE,ING_SIZE);
 	configureSprites(tab);
 	return tab;
 }
@@ -72,4 +78,26 @@ void initIng(ingredient* i,ingType id,int  x,int y,int h,int w)
 	i->width = w;
 	i->visible = true;
 	i->selected = false;
+}
+
+void resetIngredientPos(ingredient* ing)
+{
+	switch (ing->id)
+	{
+		case COFFEE :
+			ing->x = COFFEE_X;
+			ing->y = COFFEE_Y;
+			break;
+		case SUGAR:
+			ing->x = SUGAR_X;
+			ing->y = SUGAR_Y;
+			break;
+		case CREAM:
+			ing->x = CREAM_X;
+			ing->y = CREAM_Y;
+			break;
+		default:
+			printf("Well, this is awkward XD");
+	}
+
 }

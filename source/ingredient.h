@@ -34,5 +34,7 @@ void configureSprites(ingredient* tab);
 
 ingredient * initIngredientTab(void);
 
+void resetIngredientPos(ingredient* ing);
+
 
 #endif /* INGREDIENT_H_ */
