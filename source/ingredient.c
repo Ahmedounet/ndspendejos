@@ -36,7 +36,6 @@ void setIngredient(ingredient ing)
 					false,
 					!ing.visible,
 					false,
-					false,
 					false);
 }
 

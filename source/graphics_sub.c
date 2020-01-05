@@ -6,20 +6,9 @@
  */
 
 #include "SubBG.h"
-#include "selected.h"
 
 #include "graphics_sub.h"
 
-const u8 EMPTY_TILE[64] = {0}; // C automatically initializes the rest to 0;
-
-void createBG1Map(void)
-{
-	int i;
-	for(i = 0; i<4; i++)
-		BG_MAP_RAM_SUB(1)[i] = selectedMap[i];
-	for(i = 4; i<32*24; i++)
-		BG_MAP_RAM_SUB(1)[i] = selectedTilesLen/64; // The empty tile is copied right after the SELECTED tiles, so in the address selectedTilesLen (by byte)
-}
 
 
 void initGraphicsSub(void)
@@ -35,10 +24,6 @@ void initGraphicsSub(void)
 	dmaCopy(SubBGPal,(u8*)BG_PALETTE_SUB,SubBGPalLen);
 	dmaCopy(SubBGTiles,(u8*)BG_TILE_RAM_SUB(2),SubBGTilesLen);
 
-	dmaCopy(selectedPal,(u8*)(BG_PALETTE_SUB + SubBGPalLen), selectedPalLen);
-	dmaCopy(selectedTiles,(u8*)BG_TILE_RAM_SUB(1),selectedTilesLen);
-	dmaCopy(EMPTY_TILE,(u8*)BG_TILE_RAM_SUB(1)+selectedTilesLen,64);
-	createBG1Map();
 }
 
 
