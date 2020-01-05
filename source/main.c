@@ -3,7 +3,11 @@
 #include "ingredient.h"
 #include "touchHandler.h"
 #include "graphics_sub.h"
-#include <nds.h>
+#include "sound.h"
+
+
+
+
 
 
 
@@ -14,8 +18,11 @@ int main(void) {
     initGraphicsSub();
     ingredient* tab = initIngredientTab();
 	configureSprites(tab);
+	initSound();
+
 	//consoleDemoInit();
 
+	musicOn();
 
     while(1)
     {

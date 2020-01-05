@@ -33,6 +33,7 @@ void setIngredient(ingredient ing)
 					ing.gfx,
 					-1,
 					false,
+					false,
 					!ing.visible,
 					false,
 					false,

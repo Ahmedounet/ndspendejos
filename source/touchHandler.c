@@ -6,9 +6,11 @@
  */
 
 #include "touchHandler.h"
+#include "sound.h"
 
 #include <stdbool.h>
 #include<math.h>
+
 #define POT_CENTRE_X  123
 #define POT_CENTRE_Y  81
 #define ELLIPSE_2A  96
@@ -69,8 +71,8 @@ void handleSelected(ingredient* ing)
 		// Inside the ellipse representing the coffee cup
 		if(distance(ing->x,ing->y,F1_X,POT_CENTRE_Y) + distance(ing->x,ing->y,F2_X,POT_CENTRE_Y) <= ELLIPSE_2A)
 		{
-			//@TODO play plop
-			printf("DROPPED IN THE CUP\n");
+			plop();
+			//printf("DROPPED IN THE CUP\n");
 			//@TODO selected ingredient dropped into cup
 		}
 			ing->selected = false;
