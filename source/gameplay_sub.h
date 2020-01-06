@@ -5,15 +5,20 @@
  *      Author: Dev
  */
 
-#ifndef TOUCHHANDLER_H_
-#define TOUCHHANDLER_H_
+#ifndef GAMEPLAY_SUB_H_
+#define GAMEPLAY_SUB_H_
 #include "ingredient.h"
 
 #include <nds.h>
 
 //void selectIngredient(int num, ingredient tab[num]);
+bool gameSubDone;
 
-void handleTouch(int num, ingredient tab[num]);
+void resetGameplaySub();
+
+void gameplaySub();
+
+void gameLostSub();
 
 
-#endif /* TOUCHHANDLER_H_ */
+#endif /* GAMEPLAY_SUB_H_ */

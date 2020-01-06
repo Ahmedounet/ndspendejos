@@ -20,6 +20,8 @@
 #define CREAM_Y 122
 
 
+
+
 void setIngredient(ingredient ing)
 {
 	oamSet(&oamSub,
@@ -27,45 +29,36 @@ void setIngredient(ingredient ing)
 					ing.x,
 					ing.y,
 					0,
-					ing.id,
+					ing.id%3, // This allows us to retrieve the correct palette from the hashed ID for all sprites.
 					SpriteSize_32x32,
 					SpriteColorFormat_16Color,
 					ing.gfx,
 					-1,
 					false,
-					false,
 					!ing.visible,
+					false,
 					false,
 					false);
 }
 
-void configureSprites(ingredient *tab)
+void configureSprites_sub()
 {
 	VRAM_D_CR = VRAM_ENABLE | VRAM_D_SUB_SPRITE;
 	oamInit(&oamSub,SpriteMapping_1D_64,false);
 
 
-	tab[COFFEE].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
-	tab[SUGAR].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
-	tab[CREAM].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
+	ingTab[COFFEE].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
+	ingTab[SUGAR].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
+	ingTab[CREAM].gfx = oamAllocateGfx(&oamSub,SpriteSize_32x32, SpriteColorFormat_16Color);
 
-	dmaCopy(beanTiles,tab[COFFEE].gfx,beanTilesLen);
+	dmaCopy(beanTiles,ingTab[COFFEE].gfx,beanTilesLen);
 	dmaCopy(beanPal,SPRITE_PALETTE_SUB,beanPalLen);
-	dmaCopy(cubeTiles,tab[SUGAR].gfx,cubeTilesLen);
+	dmaCopy(cubeTiles,ingTab[SUGAR].gfx,cubeTilesLen);
 	dmaCopy(cubePal,(u8*)(SPRITE_PALETTE_SUB+16),cubePalLen);
-	dmaCopy(creamTiles,tab[CREAM].gfx,creamTilesLen);
+	dmaCopy(creamTiles,ingTab[CREAM].gfx,creamTilesLen);
 	dmaCopy(creamPal,(u8*)(SPRITE_PALETTE_SUB+32),creamPalLen);
 
-}
 
-ingredient*  initIngredientTab()
-{
-	ingredient* tab = malloc(3*sizeof(ingredient));
-	initIng(&tab[COFFEE],COFFEE,COFFEE_X,COFFEE_Y,ING_SIZE,ING_SIZE);
-	initIng(&tab[SUGAR],SUGAR,SUGAR_X,SUGAR_Y,ING_SIZE,ING_SIZE);
-	initIng(&tab[CREAM],CREAM,CREAM_X,CREAM_Y,ING_SIZE,ING_SIZE);
-	configureSprites(tab);
-	return tab;
 }
 
 
@@ -79,6 +72,27 @@ void initIng(ingredient* i,ingType id,int  x,int y,int h,int w)
 	i->visible = true;
 	i->selected = false;
 }
+
+void resetIngredientTab()
+{
+	initIng(&ingTab[COFFEE],COFFEE,COFFEE_X,COFFEE_Y,ING_SIZE,ING_SIZE);
+	initIng(&ingTab[SUGAR],SUGAR,SUGAR_X,SUGAR_Y,ING_SIZE,ING_SIZE);
+	initIng(&ingTab[CREAM],CREAM,CREAM_X,CREAM_Y,ING_SIZE,ING_SIZE);
+	setIngredient(ingTab[COFFEE]);
+	setIngredient(ingTab[SUGAR]);
+	setIngredient(ingTab[CREAM]);
+}
+
+void  initIngredientTab()
+{
+	configureSprites_sub();
+	resetIngredientTab();
+
+}
+
+
+
+
 
 void resetIngredientPos(ingredient* ing)
 {
@@ -99,5 +113,25 @@ void resetIngredientPos(ingredient* ing)
 		default:
 			printf("Well, this is awkward XD");
 	}
-
 }
+
+
+
+void newOrder()
+{
+	int i;
+	int randId;
+	for(i=0 ; i<3 ; i++)
+	{
+		//oamClearSprite(&oamSub,orderTab[i].id);
+		orderTab[i].visible = false;
+		setIngredient(orderTab[i]);
+		initIng(&orderTab[i],0,i*ING_SIZE,0,ING_SIZE,ING_SIZE); // The 0 in the id field is a temporary placeholder. The proper ID is calculated in the function "newOrder"
+		randId = rand()%3;
+		orderTab[i].gfx = ingTab[randId].gfx;
+		orderTab[i].id = randId+3*(i+1); // The id is hashed to be unique for every sprite, yet indicate the correct palette to use for each ingredient.
+		setIngredient(orderTab[i]);
+	}
+}
+
+

@@ -12,6 +12,8 @@
 
 typedef enum  {COFFEE, SUGAR, CREAM} ingType;
 
+
+
 typedef struct
 {
 	ingType id;
@@ -22,6 +24,11 @@ typedef struct
 	bool selected;
 } ingredient;
 
+ingredient ingTab[3];
+
+ingredient orderTab[3];
+
+
 /**
  * \brief Sets the sprite for the ingredient
  */
@@ -30,11 +37,20 @@ void setIngredient(ingredient ing);
 /**
  * \brief Initiates the sprite handler on the Main engine, activates and configures the VRAM, and allocates the sprite memory
  */
-void configureSprites(ingredient* tab);
+void configureSprites_sub();
 
-ingredient * initIngredientTab(void);
+/**
+ * \brief Initializes an array containing 3 ingredients, these will be represented by the sprites to be dropped into the cup.
+ */
+void initIngredientTab(void);
+/**
+ * \brief Generates a new order of 3 random ingredients. These are the sprites in the top left corner of the screen.
+ */
+void newOrder();
+
 
 void resetIngredientPos(ingredient* ing);
 
+void resetIngredientTab();
 
 #endif /* INGREDIENT_H_ */
