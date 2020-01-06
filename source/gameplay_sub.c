@@ -135,9 +135,11 @@ void gameLostSub()
 	{
 		ingTab[i].visible = false;
 		orderTab[i].visible = false;
+		resetIngredientPos(&ingTab[i]);
 		setIngredient(ingTab[i]);
 		setIngredient(orderTab[i]);
 	}
+	oamUpdate(&oamSub);
 }
 
 

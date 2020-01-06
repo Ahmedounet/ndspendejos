@@ -30,13 +30,13 @@ void timerISR() {
 
 	timer_ticks++;
 
-	if( timer_ticks>=100)
+	if( timer_ticks>=50)
 	{
 		timer_ticks=0;
 		if(!priorities[HOME_SCREEN])
 		{
 			irqDisable(IRQ_TIMER1);
-
+			gameLostSub();
 			losing_screen(FROM_HOME);
 		}
 	}

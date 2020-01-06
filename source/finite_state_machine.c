@@ -17,10 +17,6 @@ void finite_state_machine(int *x, int *y,int maze)
 		    	go_maze(keys,x,y);
 		    }
 
-		    if(keys == KEY_UP)
-		    {
-		    	losing_screen(FROM_HOME);
-		    }
 		}
 
 
